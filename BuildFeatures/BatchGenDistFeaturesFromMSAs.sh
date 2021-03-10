@@ -104,9 +104,9 @@ for i in $targets
 do
 	while true
 	do
-                #numRunningJobs=`ps -x | grep ${keywords} | grep -v ${myself} | wc -l`
-                numRunningJobs=`pgrep ${keywords} | wc -l`
-                if [ $numRunningJobs -lt $numAllowedJobs  ]; then
+                numRunningJobs=`ps -x | grep ${keywords} | grep -v ${myself} | wc -l`
+                #numRunningJobs=`pgrep ${keywords} | wc -l`
+                if [ $numRunningJobs -le $numAllowedJobs  ]; then
 			if [ -f $MSADir/${i}.a3m ]; then
 				$program -o $ResDir/feat_${i}_contact -g $gpu -r $GPUmode -h $GPUMachineFile $MSADir/${i}.a3m &
 				sleep 2
@@ -127,9 +127,9 @@ currDir=`pwd`
 cd $ResDir
 for i in $targets
 do
-	ln -s $ResDir/feat_${i}_contact/${i}.inputFeatures.pkl
-	ln -s $ResDir/feat_${i}_contact/${i}.extraCCM.pkl
-	ln -s $ResDir/feat_${i}_contact/${i}.a2m
+	ln -s feat_${i}_contact/${i}.inputFeatures.pkl
+	ln -s feat_${i}_contact/${i}.extraCCM.pkl
+	ln -s feat_${i}_contact/${i}.a2m
 done
 
 cd $currDir
